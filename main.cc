@@ -13,7 +13,8 @@ string EmpID[maxRow] = {};
 void OpenFile(){
         string line;
 
-        ifstream employeesFile("/home/mi/Documents/NE/DSA/DSA_REV/employees.txt");
+        ifstream employeesFile;
+        employeesFile.open("employees.txt");
 
         if(employeesFile.is_open()){
             int x=0;
@@ -26,7 +27,10 @@ void OpenFile(){
             }
             
         }
-        cout<<"Unable to open the file!"<<endl;
+        else{
+             cout<<"Unable to open the file!"<<endl;
+        }
+        
 }
 
 void AddRecord()
@@ -152,7 +156,7 @@ void DeleteRecord(string empID){
 
 void saveToFIle(){
     ofstream employeesFile;
-    employeesFile.open("/home/mi/Documents/NE/DSA/DSA_REV/employees.txt");
+    employeesFile.open("employees.txt");
 
     for(int x = 0; x<maxRow; x++){
         if(EmpID[x] == "\0"){
