@@ -9,6 +9,26 @@ const int maxRow = 10;
 string EmpName[maxRow] = {};
 string EmpID[maxRow] = {};
 
+
+void OpenFile(){
+        string line;
+
+        ifstream employeesFile("/home/mi/Documents/NE/DSA/DSA_REV/employees.txt");
+
+        if(employeesFile.is_open()){
+            int x=0;
+            while (getline(employeesFile,line))
+            {
+               int l = line.length(); 
+               EmpID[x] = line.substr(0,3);
+               EmpName[x] = line.substr(4,1-4);
+               x++;
+            }
+            
+        }
+        cout<<"Unable to open the file!"<<endl;
+}
+
 void AddRecord()
 {
     char name[50];
@@ -129,12 +149,29 @@ void DeleteRecord(string empID){
         cout << "RECORD BY ID NOT FOUND " << endl;
     }
 }
+
+void saveToFIle(){
+    ofstream employeesFile;
+    employeesFile.open("/home/mi/Documents/NE/DSA/DSA_REV/employees.txt");
+
+    for(int x = 0; x<maxRow; x++){
+        if(EmpID[x] == "\0"){
+            break;
+        }
+        else{
+            employeesFile<<EmpID[x] + "," + EmpName[x]<<endl;
+        }
+    }
+}
+
 int main()
 {
     int option;
     string empID;
     string newEmpName;
     cout << "MENU" << endl;
+     
+     OpenFile();
 
     do
     {
@@ -181,4 +218,9 @@ int main()
         }
 
     } while (option != 6);
+
+    saveToFIle();
+
+    cout<<"Contents saved to the file "<<endl;
+    return 0;
 }
